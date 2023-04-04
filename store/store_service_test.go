@@ -1,12 +1,16 @@
+package store
+
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 var testStoreService = &StorageService{}
 
 func init() {
-	testStoreService = InitializeStore()
+	_store := InitializeStore()
+	testStoreService = _store
 }
 
 func TestStoreInit(t *testing.T) {
@@ -18,11 +22,7 @@ func TestInsertionAndRetrieval(t *testing.T) {
 	userUUId := "e0dba740-fc4b-4977-872c-d360239e6b1a"
 	shortURL := "Jsz4k57oAX"
 
-	// Persist data mapping
 	SaveUrlMapping(shortURL, initialLink, userUUId)
 
-	// Retrieve initial URL
-	retrievedUrl := RetrieveInitialUrl(shortURL)
-
-	assert.Equal(t, initialLink, retrievedUrl)
+	assert.Equal(t, initialLink, RetrieveInitialUrl(shortURL))
 }
